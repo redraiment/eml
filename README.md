@@ -23,12 +23,12 @@ For instance:
        (princ (eml '(li <%= i %>))))
      %>))))
 ```
-It would output below:
+It would output below (without indent):
 ```HTML
 <html>
   <head>
     <title>Hello EML</title>
-    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
   <body>
     <h1>Hello EML</h1>
