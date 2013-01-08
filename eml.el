@@ -34,30 +34,30 @@
 (defun eml-escape-encode (content)
   "Escape CONTENT for inclusion in some XML."
   (reduce
-   #'(lambda (s plist)
-       (replace-regexp-in-string (car plist) (cdr plist) s))
+   #'(lambda (s alist)
+       (replace-regexp-in-string (car alist) (cdr alist) s))
    eml-escape-characters
    :initial-value content))
 
 (defun eml-escape-decode (content)
   "Decode the escape characters in CONTENT."
   (reduce
-   #'(lambda (s plist)
-       (replace-regexp-in-string (cdr plist) (car plist) s))
+   #'(lambda (s alist)
+       (replace-regexp-in-string (cdr alist) (car alist) s))
    (reverse eml-escape-characters)
    :initial-value content))
 
 ;;; Attribute
-(defun eml-attribute-p (plist)
+(defun eml-attribute-p (alist)
   "Predicate for XML attributs.
-Only Accept (key . value)."
-  (and (consp plist)
-       (atom (car plist))
-       (not (listp (cdr plist)))))
+Accept Cons Cell (key . value) type only, and the value MUSTN't be nil."
+  (and (consp alist)
+       (atom (car alist))
+       (not (listp (cdr alist)))))
 
-(defun eml-attribute-encode (plist)
-  "Convert a plist to xml style attribute."
-  (format "%s=\"%s\"" (car plist) (or (cdr plist) (car plist) "")))
+(defun eml-attribute-encode (alist)
+  "Convert an Association List to xml style attribute."
+  (format "%s=\"%s\"" (car alist) (or (cdr alist) (car alist) "")))
 
 ;;; main
 (defun eml (sexp)
